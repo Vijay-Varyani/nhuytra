@@ -26,14 +26,9 @@ node {
         stage('Deploye Code') {
 
             println "In Deploy Code"
-            if (isUnix()) {
-
-                println "isUni"
-                rc = sh returnStatus: true, script: "${toolbelt} auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file}  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
-            }else{
-                 println "else>>"
-                  rc = bat returnStatus: true, script: "\"${toolbelt}\"auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG}  --jwtkeyfile \"${jwt_key_file}\"  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
-            }
+           
+            rc = sh returnStatus: true, script: "${toolbelt} auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file}  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
+            
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
