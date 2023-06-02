@@ -29,10 +29,10 @@ node {
             if (isUnix()) {
 
                 println "isUni"
-                rc = sh returnStatus: true, script: "${toolbelt} auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file}  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
+                rc = sh returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file}  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
             }else{
                  println "else>>"
-                  rc = bat returnStatus: true, script: "\"${toolbelt}\"auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG}  --jwtkeyfile \"${jwt_key_file}\"  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
+                  rc = bat returnStatus: true, script: "sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG}  --jwtkeyfile \"${jwt_key_file}\"  --instanceurl ${SFDC_HOST} --setdefaultdevhubusername"
             }
             if (rc != 0) { error 'hub org authorization failed' }
 
@@ -40,9 +40,9 @@ node {
 			
 			// need to pull out assigned username
 			if (isUnix()) {
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+				rmsg = sh returnStdout: true, script: "sfdx force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 			}else{
-			   rmsg = bat returnStdout: true, script: "\"${toolbelt}\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+			   rmsg = bat returnStdout: true, script: "sfdx force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
 			}
 			  
             printf rmsg
