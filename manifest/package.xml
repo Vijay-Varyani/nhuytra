@@ -4,7 +4,10 @@
         <members>Deploy2</members>
         <name>ApexClass</name>
     </types>
-   
+   <types>
+        <members>Deploy</members>
+        <name>ApexClass</name>
+    </types>
     <types>
         <members>Trial__c</members>
         <name>CustomObject</name>
